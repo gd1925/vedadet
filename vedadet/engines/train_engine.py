@@ -6,7 +6,7 @@ from .base_engine import BaseEngine
 
 from torch.utils.tensorboard import SummaryWriter
 writer = SummaryWriter()
-
+## Trying to use the tensorboard to plot the training loss
 @registry.register_module('engine')
 class TrainEngine(BaseEngine):
 
