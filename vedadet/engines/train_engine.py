@@ -1,8 +1,11 @@
+from calendar import EPOCH
 from vedacore.misc import registry
 from vedacore.optimizers import build_optimizer
 from vedadet.criteria import build_criterion
 from .base_engine import BaseEngine
 
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
 
 @registry.register_module('engine')
 class TrainEngine(BaseEngine):
@@ -28,4 +31,6 @@ class TrainEngine(BaseEngine):
         feats = self.extract_feats(img)
         losses = self.criterion.loss(feats, img_metas, gt_labels, gt_bboxes,
                                      gt_bboxes_ignore)
+        writer.add_scalar('Loss', losses, EPOCH)
+                             
         return losses
